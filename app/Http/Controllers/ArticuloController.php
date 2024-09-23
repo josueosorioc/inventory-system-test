@@ -24,7 +24,8 @@ class ArticuloController extends Controller
 
     public function show(Articulo $articulo)
     {
-        //
+        $articulo->load('user');
+        return view('articulo', compact('articulo'));
     }
 
     public function form(Articulo $articulo = null)

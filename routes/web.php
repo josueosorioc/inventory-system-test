@@ -20,5 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('editar/{articulo}', [ArticuloController::class, 'form'])->name('edit.article');
         Route::post('save', [ArticuloController::class, 'save'])->name('save.article');
         Route::delete('delete/{articulo}', [ArticuloController::class, 'destroy'])->name('delete.article');
+        Route::get('ver/{articulo}', [ArticuloController::class, 'show'])->name('view.article');
+
     });
 });

@@ -68,7 +68,7 @@
                 name: 'acciones',
                 render: function(data, type, row, meta) {
                     return `
-                        <a href="#" class="btn btn-primary">Ver</a>
+                        <a href="{{ url('/') }}/articulos/ver/${row.id}" class="btn btn-primary">Ver</a>
                         <a href="{{ url('/') }}/articulos/editar/${row.id}" class="btn btn-secondary">Editar</a>
                         <button onclick="deleteArticle(${row.id})" class="btn btn-danger">Eliminar</button>
                     `;
