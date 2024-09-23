@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Articulo;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        
+        Gate::define('edit-article', function ($user, Articulo $articulo) {
+            return $user->id === $articulo->user_id;
+        });
+        Gate::define('delete-article', function ($user, Articulo $articulo) {
+            return $user->id === $articulo->user_id;
+        });
     }
 }

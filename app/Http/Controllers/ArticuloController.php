@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Gate;
 
 class ArticuloController extends Controller
 {
@@ -31,6 +32,9 @@ class ArticuloController extends Controller
     public function form(Articulo $articulo = null)
     {
         if (!empty($articulo)) {
+            if (Gate::denies('edit-article', $articulo)) {
+                return redirect()->route('list.articles');
+            }
             $articulo->load('user');
             return view("form_articulo", ['articulo' => $articulo]);
         }
@@ -40,6 +44,13 @@ class ArticuloController extends Controller
     public function save(Request $request)
     {
         try {
+            if ($request->id) {
+                $articulo = Articulo::find($request->id);
+                if (Gate::denies('edit-article', $articulo)) {
+                    return redirect()->back()->withError("No tienes acceso para editar este artículo");
+                }
+            }
+
             $inputs = $request->all();
 
             $validator = Validator::make($inputs, [
@@ -66,6 +77,10 @@ class ArticuloController extends Controller
     public function destroy(Articulo $articulo)
     {
         try {
+            if (Gate::denies('delete-article', $articulo)) {
+                return response()->json(['status' => true, 'message' => 'No puedes eliminar artículos que no son tuyos'], 403);
+            }
+
             $articulo->delete();
             return response()->json(['status' => true, 'message' => 'Artículo eliminado correctamente'], 200);
         } catch (\Exception $e) {
