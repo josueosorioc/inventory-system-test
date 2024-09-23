@@ -42,11 +42,12 @@ class AuthorizationController extends Controller
         try {
 
             $validator = Validator::make($request->all(), [
-                'email' => 'required',
+                'email' => 'required|email',
                 'password' => 'required',
             ]);
 
             if ($validator->fails()) {
+                Log::info($validator->errors()->all());
                 return redirect()->back()->withError($validator->errors()->all());
             }
 
@@ -76,8 +77,8 @@ class AuthorizationController extends Controller
             $inputs = $request->all();
 
             $validator = Validator::make($inputs, [
-                'name' => 'required',
-                'email' => 'required',
+                'name' => 'required|regex:/^[A-Za-z\s]+$/',
+                'email' => 'required|email',
                 'password' => 'required',
             ]);
 

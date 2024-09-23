@@ -34,14 +34,14 @@
                         </div>
                         <div class="col-md-3 mb-3">
                             <label>Cantidad:</label>
-                            <input type="number" class="form-control" name="cantidad"
+                            <input type="number" class="form-control" name="cantidad" step="1"
                                 value="{{ !empty($articulo) ? $articulo->cantidad : '' }}" required>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12 mb-4">
                             <label>Descripción:</label>
-                            <textarea name="descripcion" class="form-control" rows="4">{{ !empty($articulo) ? $articulo->descripcion : '' }}</textarea>
+                            <textarea name="descripcion" class="form-control" rows="4" required>{{ !empty($articulo) ? $articulo->descripcion : '' }}</textarea>
                         </div>
                     </div>
                     <div class="col-12">
