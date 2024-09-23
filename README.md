@@ -13,6 +13,7 @@ Sistema básico de gestión de artículos con crud de artículos y registro e in
 - Generar/Crear archivo '.env'  en la raiz del proyecto, se puede copiar los datos de .env.example
 - Hecho lo anterior y finalizado el proceso de instalación de las paqueterías correr el comando `php artisan key:generate`
 - Finalizado los pasos anteriores correr el comando `php artisan migrate --seed` para generar datos para tests, este genera un usuario por defecto con las siguientes credenciales "josue.osorio@example.com" y como contraseña "abc.123"
+- En caso de no generarse el archivo de sql se puede crear en la siguiente ruta y con el siguiente nombre `database\database.sqlite`
 
 ## Testing
 
