@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class ArticuloController extends Controller
 {
+    
     public function index()
     {
         return view('dashboard');
@@ -14,7 +15,8 @@ class ArticuloController extends Controller
 
     public function data()
     {
-        //
+        $articulos = Articulo::with('user')->orderBy('created_at', 'desc')->get();
+        return response()->json($articulos, 200);
     }
 
     public function show(Articulo $articulo)

@@ -32,16 +32,6 @@ class AuthorizationController extends Controller
     }
 
     /**
-     * Vista de inventario
-     * 
-     * @return View
-     **/
-    public function dashboard()
-    {
-        return view('dashboard');
-    }
-
-    /**
      * Login de usuarios
      * 
      * @param Request $data

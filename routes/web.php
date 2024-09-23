@@ -15,5 +15,7 @@ Route::group(['middleware' => ['auth']], function () {
     
     Route::prefix('articulos')->group(function () {
         Route::get('/', [ArticuloController::class, 'index'])->name('list.articles');
+        Route::get('list', [ArticuloController::class, 'data'])->name('list.articles.data');
+
     });
 });
