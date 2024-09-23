@@ -16,6 +16,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('articulos')->group(function () {
         Route::get('/', [ArticuloController::class, 'index'])->name('list.articles');
         Route::get('list', [ArticuloController::class, 'data'])->name('list.articles.data');
-
+        Route::get('registrar', [ArticuloController::class, 'form'])->name('add.article');
+        Route::get('editar/{articulo}', [ArticuloController::class, 'form'])->name('edit.article');
+        Route::post('save', [ArticuloController::class, 'save'])->name('save.article');
+        Route::delete('delete/{articulo}', [ArticuloController::class, 'destroy'])->name('delete.article');
     });
 });

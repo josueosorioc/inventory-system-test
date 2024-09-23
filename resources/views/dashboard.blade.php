@@ -4,9 +4,17 @@
 
 @section('content')
     <div class="container mt-5">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h3 class="mb-4">Listado de artículos</h3>
+            </div>
+            <div class="col-md-6 text-end">
+                <a href="{{ route('add.article') }}" class="btn btn-secondary">Registrar artículo</a>
+            </div>
+        </div>
+        <hr>
         <div class="row">
             <div class="col-md-12">
-                <h3 class="mb-4">Listado de artículos</h3>
                 <div class="table-responsive">
                     <table class="table bordered-table mb-0" id="dataTable">
                         <thead>
@@ -59,11 +67,42 @@
                 className: 'text-center',
                 name: 'acciones',
                 render: function(data, type, row, meta) {
-                    return ``;
+                    return `
+                        <a href="#" class="btn btn-primary">Ver</a>
+                        <a href="{{ url('/') }}/articulos/editar/${row.id}" class="btn btn-secondary">Editar</a>
+                        <button onclick="deleteArticle(${row.id})" class="btn btn-danger">Eliminar</button>
+                    `;
                 }
             },
         ]
         let table = new DataTable('#dataTable', configDT);
-    </script>
+
+        function deleteArticle(id) {
+            Swal.fire({
+                title: "¿Estas seguro de eliminar este artículo?",
+                text: "Esta accion es irreversible",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, eliminar",
+                cancelButtonText: "Cancelar"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: "DELETE",
+                        url: `{{ url('/') }}/articulos/delete/${id}`,
+                    }).done(function(res) {
+                        Swal.fire(
+                            'Registro eliminado',
+                            'El artículo ha sido eliminada con éxito',
+                            'success'
+                        );
+                        table.rows().invalidate().draw(false);
+                        table.ajax.reload();
+                    });
+                }
+            });
+        }
     </script>
 @endsection

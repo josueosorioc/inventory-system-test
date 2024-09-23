@@ -10,14 +10,16 @@
                 <div class="navbar-nav">
                     <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ route('login') }}">Inicio de
                         sesión</a>
-                    <a class="nav-link {{ Request::is('/registro') ? 'active' : '' }}"
+                    <a class="nav-link {{ Request::is('registro') ? 'active' : '' }}"
                         href="{{ route('register') }}">Registro</a>
                 </div>
             @endguest
             @auth
                 <div class="navbar-nav">
-                    <a class="nav-link" href="#">Artículos</a>
-                    <a class="nav-link" href="#">Registrar artículo</a>
+                    <a class="nav-link {{ Request::is('articulos') ? 'active' : '' }}"
+                        href="{{ route('list.articles') }}">Lista de artículos</a>
+                    <a class="nav-link {{ Request::is('articulos/registrar') ? 'active' : '' }}" href="{{ route('add.article') }}">Registrar
+                        artículo</a>
                     <a class="nav-link" href="{{ route('logout') }}">Cerrar sesión</a>
                 </div>
             @endauth
